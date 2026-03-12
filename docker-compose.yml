@@ -1,0 +1,36 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - '127.0.0.1:5433:5432'
+    environment:
+      - POSTGRES_USER=trading
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-trading123}
+      - POSTGRES_DB=trading_copilot
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  server:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.server
+    ports:
+      - '127.0.0.1:3002:3002'
+    environment:
+      - DATABASE_URL=postgresql://trading:${POSTGRES_PASSWORD:-trading123}@postgres:5432/trading_copilot
+    depends_on:
+      - postgres
+
+  web:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.web
+    ports:
+      - '127.0.0.1:3000:3000'
+    environment:
+      - API_URL=http://server:3002
+    depends_on:
+      - server
+
+volumes:
+  postgres_data:

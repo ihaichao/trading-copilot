@@ -1,0 +1,253 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide TradingView watermark from lightweight-charts */
+[id^="tv-attr-logo"] {
+  display: none !important;
+}
+
+:root {
+  /* Backgrounds */
+  --bg-primary: #06080c;
+  --bg-card: #0c1018;
+  --bg-elevated: #111720;
+  --bg-hover: #161e2a;
+
+  /* Borders */
+  --border: #1c2636;
+  --border-subtle: #141c28;
+  --border-accent: #1e3a5f;
+
+  /* Text */
+  --text-primary: #d0d8e4;
+  --text-secondary: #8494ad;
+  --text-muted: #5a6a84;
+
+  /* Accent colors */
+  --cyan: #00d4ff;
+  --cyan-dim: #0099bb;
+  --cyan-glow: #00d4ff33;
+  --amber: #f0a030;
+  --amber-dim: #c08020;
+  --bull: #00e676;
+  --bear: #ff3d57;
+  --purple: #a78bfa;
+
+  /* Chart */
+  --chart-bg: #0c1018;
+  --chart-text: #5c6b82;
+  --chart-grid-v: #141c2808;
+  --chart-grid-h: #141c2820;
+  --chart-crosshair: #00d4ff22;
+  --chart-crosshair-label: #111720;
+
+  /* Misc */
+  --section-label: #8b9bb5;
+  --scrollbar-thumb: #1c2636;
+  --scrollbar-thumb-hover: #2a3a52;
+  --data-row-hover: #111720;
+  --card-gradient-from: #0c1018;
+  --card-gradient-to: #0a0e16;
+  --card-top-line: #00d4ff15;
+  --focus-ring: #00d4ff44;
+  --noise-opacity: 0.025;
+
+  /* Glow */
+  --glow-cyan-1: #00d4ff18;
+  --glow-cyan-2: #00d4ff10;
+  --glow-bull-1: #00e67622;
+  --glow-bull-2: #00e67615;
+  --glow-bear-1: #ff3d5722;
+  --glow-bear-2: #ff3d5715;
+
+  /* Score bar (same both themes) */
+  --score-bar-from: #ff3d57;
+  --score-bar-via: #f0a030;
+  --score-bar-to: #00e676;
+
+  /* Data-row border gradient */
+  --data-row-border: #1c2636;
+}
+
+.light {
+  /* Backgrounds */
+  --bg-primary: #f5f6f8;
+  --bg-card: #ffffff;
+  --bg-elevated: #f0f1f4;
+  --bg-hover: #e8eaef;
+
+  /* Borders */
+  --border: #d4d8e0;
+  --border-subtle: #e2e5eb;
+  --border-accent: #b0c4de;
+
+  /* Text */
+  --text-primary: #1a1e26;
+  --text-secondary: #5c6370;
+  --text-muted: #9ca3af;
+
+  /* Accent colors — deeper for readability on white */
+  --cyan: #0891b2;
+  --cyan-dim: #0e7490;
+  --cyan-glow: #0891b233;
+  --amber: #d97706;
+  --amber-dim: #b45309;
+  --bull: #16a34a;
+  --bear: #dc2626;
+  --purple: #7c3aed;
+
+  /* Chart */
+  --chart-bg: #ffffff;
+  --chart-text: #5c6370;
+  --chart-grid-v: #e2e5eb20;
+  --chart-grid-h: #e2e5eb60;
+  --chart-crosshair: #0891b230;
+  --chart-crosshair-label: #f0f1f4;
+
+  /* Misc */
+  --section-label: #6b7280;
+  --scrollbar-thumb: #d4d8e0;
+  --scrollbar-thumb-hover: #b0b8c4;
+  --data-row-hover: #f0f1f4;
+  --card-gradient-from: #ffffff;
+  --card-gradient-to: #fafbfc;
+  --card-top-line: #0891b215;
+  --focus-ring: #0891b244;
+  --noise-opacity: 0;
+
+  /* Glow — subtle on light */
+  --glow-cyan-1: #0891b218;
+  --glow-cyan-2: #0891b210;
+  --glow-bull-1: #16a34a18;
+  --glow-bull-2: #16a34a10;
+  --glow-bear-1: #dc262618;
+  --glow-bear-2: #dc262610;
+
+  /* Data-row border gradient */
+  --data-row-border: #d4d8e0;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: var(--noise-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* Custom scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Utility classes */
+.card-surface {
+  background: linear-gradient(135deg, var(--card-gradient-from) 0%, var(--card-gradient-to) 100%);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-surface::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--card-top-line), transparent);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 12px var(--glow-cyan-1), 0 0 4px var(--glow-cyan-2);
+}
+
+.glow-bull {
+  box-shadow: 0 0 8px var(--glow-bull-1), 0 0 3px var(--glow-bull-2);
+}
+
+.glow-bear {
+  box-shadow: 0 0 8px var(--glow-bear-1), 0 0 3px var(--glow-bear-2);
+}
+
+/* Data grid lines */
+.data-row {
+  position: relative;
+  transition: background-color 0.15s ease;
+}
+
+.data-row::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 12px;
+  right: 12px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--data-row-border), transparent);
+}
+
+.data-row:hover {
+  background-color: var(--data-row-hover);
+}
+
+/* Staggered animations */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+.stagger-6 { animation-delay: 0.3s; }
+.stagger-7 { animation-delay: 0.35s; }
+.stagger-8 { animation-delay: 0.4s; }
+.stagger-9 { animation-delay: 0.45s; }
+
+/* Score bar gradient */
+.score-bar {
+  background: linear-gradient(90deg, var(--score-bar-from), var(--score-bar-via), var(--score-bar-to));
+  border-radius: 2px;
+}
+
+/* Section label */
+.section-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--section-label);
+}
+
+/* Focus ring */
+input:focus, button:focus-visible {
+  outline: 1px solid var(--focus-ring);
+  outline-offset: 1px;
+}
